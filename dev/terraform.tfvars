@@ -1,5 +1,5 @@
 region = "us-east-1"
-vpc_name = "VPC_dev"
+vpc_name = "Terraform_Vpc"
 vpc_dir = "10.0.0.0/16"
 igw_name = "VPC_dev_igw"
 environment = "Devlopment"
