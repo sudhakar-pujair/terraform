@@ -16,7 +16,3 @@ variable "igw_name" {
 variable "environment" {
     type = string
 }
-
-variable "s3_bkt_name" {
-    type = string
-}
