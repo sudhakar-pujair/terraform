@@ -4,8 +4,6 @@
 # }
 
 resource "aws_s3_bucket" "bucket_backend" {
-  region = var.region
-  # bucket = "terraform-${random_integer.s3suffix.result}"
   bucket = lower(var.s3_bkt_name)
   force_destroy = true
   tags = {
