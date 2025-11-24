@@ -7,7 +7,7 @@ resource "aws_route_table" "public_rt" {
   }
 
   tags = {
-    Name = "${lower(var.vpc_name)-public-rt}"
+    Name = "${lower(var.vpc_name)}-public-rt"
     Environment = lower(var.environment)
   }
 }
@@ -20,9 +20,9 @@ resource "aws_route_table_association" "public_subnet" {
 
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.vpc_dev.id
-  
+
   tags = {
-    Name = "${lower(var.vpc_name)-private-rt}"
+    Name = "${lower(var.vpc_name)}-private-rt"
     Environment = lower(var.environment)
   }
 }
