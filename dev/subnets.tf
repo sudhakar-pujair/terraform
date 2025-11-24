@@ -9,7 +9,7 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_subnet" "private_subnet" {
-    vpc_id     = aws_vpc.vpc_id.id
+    vpc_id     = aws_vpc.vpc_dev.id
     cidr_block = var.private_subnet
 
     tags = {
