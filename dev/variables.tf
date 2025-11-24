@@ -13,11 +13,11 @@ variable "igw_name" {
     type = string  
 }
 
-variable "public_subnet_cidr" {
+variable "public_sub_cidr_1" {
     type = string
 }
 
-variable "private_subnet_cidr" {
+variable "public_sub_cidr_2" {
     type = string
 }
 
