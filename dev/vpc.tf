@@ -1,5 +1,6 @@
 resource "aws_vpc" "vpc_dev" {
   cidr_block       = var.vpc_dir
+  enable_dns_support   = true
   enable_dns_hostnames = true
 
   tags = {
