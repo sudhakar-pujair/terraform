@@ -13,6 +13,14 @@ variable "igw_name" {
     type = string  
 }
 
+variable "public_subnet" {
+    type = string
+}
+
+variable "public_sub_name" {
+    type = string
+}
+
 variable "environment" {
     type = string
 }
