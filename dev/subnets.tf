@@ -3,7 +3,7 @@ resource "aws_subnet" "public_subnet" {
     cidr_block = var.public_subnet_cidr
 
     tags = {
-      Name = "${lower(var.public_sub_name)}-public"
+      Name = "${lower(var.vpc_name)}-public"
       Environment = lower(var.environment)
     }
 }
@@ -13,7 +13,7 @@ resource "aws_subnet" "private_subnet" {
     cidr_block = var.private_subnet_cidr
 
     tags = {
-      Name = "${lower(var.private_sub_name)}-private"
+      Name = "${lower(var.vpc_name)}-private"
       Environment = lower(var.environment)
     }
 }
