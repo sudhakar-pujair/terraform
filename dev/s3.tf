@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "backup" {
   region = var.region
 
   tags = {
-    Name = "${var.vpc_name}-backup"
+    Name = var.aws_s3_bucket
     Environment = var.environment
   }
 }
