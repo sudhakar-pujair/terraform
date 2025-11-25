@@ -1,5 +1,5 @@
 region = "us-east-1"
-vpc_name = "dev_vpc"
+vpc_name = "dev-vpc"
 vpc_cidr = "10.1.0.0/16"
 pub_sub_1_cidr = "10.1.1.0/24"
 pub_sub_2_cidr = "10.1.2.0/24"
