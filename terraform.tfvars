@@ -5,3 +5,9 @@ pub_sub_1_cidr = "10.1.1.0/24"
 pub_sub_2_cidr = "10.1.2.0/24"
 environment = "test"
 bucket_name = "testerras"
+
+# Aws instance varibale
+ami = "ami-0ecb62995f68bb549"
+instance_type = "t3.micro"
+key_name = "devops"
+associate_public_ip_address = "true"
