@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "backup" {
-  bucket = var.aws_s3_bucket
+  bucket = var.bucket_name
   region = var.region
 
   tags = {
-    Name = var.aws_s3_bucket
+    Name = var.bucket_name
     Environment = var.environment
   }
 }
