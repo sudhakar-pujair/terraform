@@ -1,29 +1,19 @@
-resource "aws_subnet" "public_subnet_1" {
-    vpc_id = aws_vpc.terraform_vpc.id
-    cidr_block = var.public_sub_cidr_1
+resource "aws_subnet" "pub_sub_1" {
+  vpc_id     = aws_vpc.dev_vpc.id
+  cidr_block = var.pub_sub_1_cidr
 
-    tags = {
-      Name = "${lower(var.vpc_name)}-public-sub-1"
-      Environment = lower(var.environment)
-    }
+  tags = {
+    Name = "${var.vpc_name}-pub-sub-1"
+    Environment = var.environment
+  }
 }
 
-resource "aws_subnet" "public_subnet_2" {
-    vpc_id = aws_vpc.terraform_vpc.id
-    cidr_block = var.public_sub_cidr_2
+resource "aws_subnet" "pub_sub_2" {
+  vpc_id     = aws_vpc.dev_vpc.id
+  cidr_block = var.pub_sub_2_cidr
 
-    tags = {
-      Name = "${lower(var.vpc_name)}-public-sub-2"
-      Environment = lower(var.environment)
-    }
-}
-
-resource "aws_subnet" "public_subnet_3" {
-    vpc_id = aws_vpc.terraform_vpc.id
-    cidr_block = var.public_sub_cidr_3
-
-    tags = {
-      Name = "${lower(var.vpc_name)}-public-sub-3"
-      Environment = lower(var.environment)
-    }
+  tags = {
+    Name = "${var.vpc_name}-pub-sub-2"
+    Environment = var.environment
+  }
 }

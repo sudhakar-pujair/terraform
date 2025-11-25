@@ -1,27 +1,24 @@
 variable "region" {
-    type = string
+  type = string
 }
 
 variable "vpc_name" {
-    type = string
+  type = string
 }
 
 variable "vpc_cidr" {
-    type = string
+  type = string
+}
+
+variable "pub_sub_1_cidr" {
+  type = string
+}
+
+variable "pub_sub_2_cidr" {
+  type = string
 }
 
 variable "environment" {
-    type = string
+  type = string
 }
 
-variable "public_sub_cidr_1" {
-    type = string
-}
-
-variable "public_sub_cidr_2" {
-    type = string
-}
-
-variable "public_sub_cidr_3" {
-    type = string
-}
