@@ -1,9 +1,9 @@
 output "vpc_id" {
-  value = aws_vpc.dev_vpc.id
+  value = aws_vpc.test_vpc.id
 }
 
 output "vpc_arn" {
-  value = aws_vpc.dev_vpc.arn
+  value = aws_vpc.test_vpc.arn
 }
 
 output "igw_id" {

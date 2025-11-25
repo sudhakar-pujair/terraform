@@ -1,5 +1,5 @@
 resource "aws_subnet" "pub_sub_1" {
-  vpc_id     = aws_vpc.dev_vpc.id
+  vpc_id     = aws_vpc.test_vpc.id
   cidr_block = var.pub_sub_1_cidr
 
   tags = {
@@ -9,7 +9,7 @@ resource "aws_subnet" "pub_sub_1" {
 }
 
 resource "aws_subnet" "pub_sub_2" {
-  vpc_id     = aws_vpc.dev_vpc.id
+  vpc_id     = aws_vpc.test_vpc.id
   cidr_block = var.pub_sub_2_cidr
 
   tags = {
