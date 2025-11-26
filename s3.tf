@@ -9,11 +9,10 @@ locals {
 
 resource "aws_s3_bucket" "s3_bucket" {
   bucket        = local.bucket_name
-  region = var.region
   force_destroy = true
-  
+
   tags = {
-    Name        = "bucket${random_integer.s3random.result}"
+    Name        = local.bucket_name
     Environment = var.env
   }
 
