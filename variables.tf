@@ -1,4 +1,4 @@
-# VPC Details
+# VPC Variables
 variable "region" {
   type = string
 }
@@ -11,6 +11,7 @@ variable "vpc_cidr" {
   type = string
 }
 
+# Subnet Variables
 variable "public_subnet_cidrs" {
   type = list(any)
 }
@@ -21,10 +22,6 @@ variable "private_subnet_cidrs" {
 
 variable "azs" {
   type = list(any)
-}
-
-variable "env" {
-  type = string
 }
 
 # Aws instance variables
@@ -40,5 +37,14 @@ variable "key_name" {
 }
 
 variable "associate_public_ip_address" {
+  type = bool
+}
+
+# S3 Variables
+variable "bucket_name" {}
+
+# Common Variables
+variable "env" {
   type = string
 }
+
