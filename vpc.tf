@@ -1,6 +1,6 @@
 ## VPC
 
-resource "aws_vpc" "test_vpc" {
+resource "aws_vpc" "dev_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
 
@@ -13,7 +13,7 @@ resource "aws_vpc" "test_vpc" {
 ## Internet Gateway
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.test_vpc.id
+  vpc_id = aws_vpc.dev_vpc.id
 
   tags = {
     Name        = "${var.vpc_name}-igw"
@@ -26,8 +26,8 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_subnet" "public_subnets" {
   # count = 2
   count             = length(var.public_subnet_cidrs)
-  vpc_id            = aws_vpc.test_vpc.id
-  cidr_block        = element(var.public_subnet_cidrs,count.index)
+  vpc_id            = aws_vpc.dev_vpc.id
+  cidr_block        = element(var.public_subnet_cidrs, count.index)
   availability_zone = element(var.azs, count.index)
 
   tags = {
@@ -41,8 +41,8 @@ resource "aws_subnet" "public_subnets" {
 resource "aws_subnet" "private_subnets" {
   # count = 2
   count             = length(var.private_subnet_cidrs)
-  vpc_id            = aws_vpc.test_vpc.id
-  cidr_block        = element(var.private_subnet_cidrs,count.index)
+  vpc_id            = aws_vpc.dev_vpc.id
+  cidr_block        = element(var.private_subnet_cidrs, count.index)
   availability_zone = element(var.azs, count.index)
 
   tags = {
@@ -54,13 +54,13 @@ resource "aws_subnet" "private_subnets" {
 ## Public Route Table
 
 resource "aws_route_table" "public_rt" {
-  vpc_id = aws_vpc.test_vpc.id
+  vpc_id = aws_vpc.dev_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
-  
+
   tags = {
     Name        = "${var.vpc_name}-public_rt"
     Environment = var.env
@@ -69,15 +69,15 @@ resource "aws_route_table" "public_rt" {
 
 resource "aws_route_table_association" "public_subnets_rt" {
   # count = 2
-  count           = length(var.public_subnet_cidrs)
-  subnet_id       = element(aws_subnet.public_subnets[*].id,count.index)
-  route_table_id  = aws_route_table.public_rt.id
+  count          = length(var.public_subnet_cidrs)
+  subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
+  route_table_id = aws_route_table.public_rt.id
 }
 
 ## Private Route Table
 
 resource "aws_route_table" "private_rt" {
-  vpc_id = aws_vpc.test_vpc.id
+  vpc_id = aws_vpc.dev_vpc.id
 
   tags = {
     Name        = "${var.vpc_name}-private_rt"
@@ -86,7 +86,7 @@ resource "aws_route_table" "private_rt" {
 }
 
 resource "aws_route_table_association" "private_subnets_rt" {
-  count           = length(var.private_subnet_cidrs)
-  subnet_id       = element(aws_subnet.private_subnets[*].id,count.index)
-  route_table_id  = aws_route_table.private_rt.id
+  count          = length(var.private_subnet_cidrs)
+  subnet_id      = element(aws_subnet.private_subnets[*].id, count.index)
+  route_table_id = aws_route_table.private_rt.id
 }
