@@ -1,9 +1,9 @@
 resource "aws_vpc" "test_vpc" {
-  cidr_block       = var.vpc_cidr
+  cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
 
   tags = {
-    Name = var.vpc_name
+    Name        = var.vpc_name
     Environment = var.env
   }
 }
@@ -12,20 +12,20 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.test_vpc.id
 
   tags = {
-    Name = "${var.vpc_name}-igw"
+    Name        = "${var.vpc_name}-igw"
     Environment = var.env
   }
 }
 
 resource "aws_subnet" "public_sub_1" {
-  vpc_id = aws_vpc.test_vpc.id
+  vpc_id     = aws_vpc.test_vpc.id
   cidr_block = var.pub_sub_1_cidr
 
   tags = {
-    Name = "${var.vpc_name}-public_sub_1"
+    Name        = "${var.vpc_name}-public_sub_1"
     Environment = var.env
   }
-  
+
 }
 
 resource "aws_route_table" "public_rt" {
@@ -37,7 +37,7 @@ resource "aws_route_table" "public_rt" {
   }
 
   tags = {
-    Name = "${var.vpc_name}-igw"
+    Name        = "${var.vpc_name}-public_rt"
     Environment = var.env
   }
 }
