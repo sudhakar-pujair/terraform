@@ -11,8 +11,12 @@ variable "vpc_cidr" {
   type = string
 }
 
-variable "pub_sub_1_cidr" {
-  type = string
+variable "public_subnet_cidrs" {
+  type = list
+}
+
+variable "azs" {
+  
 }
 
 variable "env" {

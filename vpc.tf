@@ -17,12 +17,14 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_subnet" "public_sub_1" {
-  vpc_id     = aws_vpc.test_vpc.id
-  cidr_block = var.pub_sub_1_cidr
+resource "aws_subnet" "public_subnets" {
+  count = 2
+  vpc_id            = aws_vpc.test_vpc.id
+  cidr_block        = element(var.public_subnet_cidrs, count.index)
+  availability_zone = element(var.azs, count.index)
 
   tags = {
-    Name        = "${var.vpc_name}-public_sub_1"
+    Name        = "${var.vpc_name}-prublic-subnet-${count.index}"
     Environment = var.env
   }
 
