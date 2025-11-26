@@ -41,7 +41,7 @@ variable "associate_public_ip_address" {
 }
 
 # S3 Variables
-variable "bucket_name" {}
+# variable "bucket_name" {}
 
 # Common Variables
 variable "env" {
