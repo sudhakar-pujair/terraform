@@ -12,11 +12,15 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnet_cidrs" {
-  type = list
+  type = list(any)
+}
+
+variable "private_subnet_cidrs" {
+  type = list(any)
 }
 
 variable "azs" {
-  
+  type = list(any)
 }
 
 variable "env" {
