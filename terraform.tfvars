@@ -13,5 +13,8 @@ instance_type               = "t3.micro"
 key_name                    = "devops"
 associate_public_ip_address = "true"
 
+#
+all_traffic = "0.0.0.0/0"
+
 # S3 Varibale Values
 bucket_name = "DevBucket"
