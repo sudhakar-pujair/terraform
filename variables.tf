@@ -40,6 +40,11 @@ variable "associate_public_ip_address" {
   type = bool
 }
 
+# Security Group Variable Values
+variable "cidr_ipv4" {
+  type = string
+}
+
 # S3 Variables
 variable "bucket_name" {
   type = string
