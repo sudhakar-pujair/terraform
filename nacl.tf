@@ -24,8 +24,8 @@ resource "aws_network_acl_rule" "outbound_ephemeral" {
   protocol       = "-1"
   rule_action    = "allow"
   cidr_block     = var.all_traffic
-  from_port      = 1024
-  to_port        = 65535
+  from_port      = 0
+  to_port        = 0
   egress         = true
 }
 
