@@ -3,26 +3,22 @@ resource "random_integer" "s3random" {
   max = 20000
 }
 
-locals {
-  bucket_name = "${var.bucket_name}bucket${random_integer.s3random.result}"
-}
-
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket        = local.bucket_name
+  bucket        = "${var.bucket_name}bucket${random_integer.s3random.result}"
   force_destroy = true
 
   tags = {
-    Name        = local.bucket_name
+    Name        = "${var.bucket_name}bucket${random_integer.s3random.result}"
     Environment = var.env
   }
 
   lifecycle {
     precondition {
-      condition     = local.bucket_name == lower(local.bucket_name)
+      condition     = "${var.bucket_name}bucket${random_integer.s3random.result}" == lower("${var.bucket_name}bucket${random_integer.s3random.result}")
       error_message = "Bucket prefix must be lowercase."
     }
     precondition {
-      condition     = alltrue([length(local.bucket_name) > 14, length(local.bucket_name) < 21])
+      condition     = alltrue([length("${var.bucket_name}bucket${random_integer.s3random.result}") > 14, length("${var.bucket_name}bucket${random_integer.s3random.result}") < 21])
       error_message = "The Length of Bucket Name Must Be Between 15 to 20."
     }
     precondition {
