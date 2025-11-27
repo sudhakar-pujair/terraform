@@ -14,4 +14,4 @@ key_name                    = "devops"
 associate_public_ip_address = "true"
 
 # S3 Varibale Values
-bucket_name = "DEV"
+# bucket_name = "dev"
