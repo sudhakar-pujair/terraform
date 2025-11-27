@@ -1,7 +1,7 @@
 resource "aws_security_group" "nginx_sg" {
   name        = "${var.vpc_name}-nginx-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.vpc_id.id
+  vpc_id      = aws_vpc.dev_vpc.id
 
   tags = {
     Name = "${var.vpc_name}-nginx-sg"
