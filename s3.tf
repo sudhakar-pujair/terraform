@@ -4,8 +4,7 @@ resource "random_integer" "s3random" {
 }
 
 locals {
-  bucket_name = "${lower(var.bucket_name)}bucket${random_integer.s3random.result}"
-  env_lower   = lower(var.env)
+  bucket_name = "${var.bucket_name}bucket${random_integer.s3random.result}"
 }
 
 resource "aws_s3_bucket" "s3_bucket" {
@@ -14,7 +13,7 @@ resource "aws_s3_bucket" "s3_bucket" {
 
   tags = {
     Name        = local.bucket_name
-    Environment = local.env_lower
+    Environment = var.env
   }
 
   lifecycle {
@@ -29,7 +28,7 @@ resource "aws_s3_bucket" "s3_bucket" {
     }
 
     precondition {
-      condition     = local.env_lower == "dev" || local.env_lower == "prod"
+      condition     = var.env == "dev" || var.env == "prod"
       error_message = "The environment must be 'dev' or 'prod'."
     }
   }
