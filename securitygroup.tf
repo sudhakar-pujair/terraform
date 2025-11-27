@@ -18,7 +18,7 @@ resource "aws_security_group" "nginx_sg" {
 resource "aws_vpc_security_group_ingress_rule" "nginx_sg_in" {
   security_group_id = aws_security_group.nginx_sg.id
 
-  cidr_ipv4   = var.cidr_ipv4   # "0.0.0.0/0" from terraform.tfvars
+  cidr_ipv4   = "0.0.0.0/0"
   from_port   = 80
   to_port     = 80
   ip_protocol = "tcp"
