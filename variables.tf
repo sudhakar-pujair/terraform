@@ -44,10 +44,10 @@ variable "associate_public_ip_address" {
 variable "bucket_name" {
   type = string
 
-  # validation {
-  #   condition     = var.bucket_name == lower(var.bucket_name)
-  #   error_message = "bucket_name must be all lowercase."
-  # }
+  validation {
+    condition     = var.bucket_name == lower(var.bucket_name)
+    error_message = "bucket_name must be all lowercase."
+  }
 }
 
 # Common Variables
