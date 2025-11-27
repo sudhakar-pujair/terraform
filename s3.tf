@@ -4,7 +4,7 @@ resource "random_integer" "s3random" {
 }
 
 locals {
-  bucket_name = "${var.bucket_name}bucket${random_integer.s3random.result}"
+  bucket_name = "${var.bucket_name}-bucket-${random_integer.s3random.result}"
 }
 resource "aws_s3_bucket" "s3_bucket" {
   bucket        = local.bucket_name
