@@ -18,21 +18,10 @@ resource "aws_network_acl_rule" "inbound_http" {
   egress         = false
 }
 
-resource "aws_network_acl_rule" "inbound_ssh" {
-  network_acl_id = aws_network_acl.nacl.id
-  rule_number    = 110
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = var.all_traffic
-  from_port      = 22
-  to_port        = 22
-  egress         = false
-}
-
 resource "aws_network_acl_rule" "outbound_ephemeral" {
   network_acl_id = aws_network_acl.nacl.id
   rule_number    = 200
-  protocol       = "tcp"
+  protocol       = "-1"
   rule_action    = "allow"
   cidr_block     = var.all_traffic
   from_port      = 1024
