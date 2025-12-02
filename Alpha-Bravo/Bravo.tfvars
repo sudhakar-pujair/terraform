@@ -1,0 +1,36 @@
+#Deploy To SREEYUTUBE Account.
+environment          = "dev"
+aws_region           = "us-east-1"
+vpc_cidr             = "10.44.0.0/16"
+vpc_name             = "BRAVO"
+public_cidr_block    = ["10.44.1.0/24", "10.44.2.0/24", "10.44.3.0/24"]
+private_cidr_block   = ["10.44.10.0/24", "10.44.20.0/24", "10.44.30.0/24"]
+azs                  = ["us-east-1a", "us-east-1b", "us-east-1c"]
+owner                = "JavaAppTeam"
+service_ports        = ["80", "443", "22", "3389", "3306"]
+rolename             = "bravo-testrole-dev"
+instanceprofilename  = "bravo-instprofile-dev"
+iam_policy_name      = "bravo-iampolicy-dev"
+instance_type        = "t2.micro"
+key_name             = "LaptopKey"
+project_name         = "bravo"
+albname              = "bravo-dev-alb"
+albtgname            = "bravo-dev-alb-tg"
+alb_certificate_arn  = "arn:aws:acm:us-east-1:721834156908:certificate/18437322-0573-49ae-aca2-c815aa0300ad"
+nlbname              = "bravo-dev-nlb"
+nlbtgname            = "bravo-dev-nlb-tg"
+domainname           = "awsb72.xyz"
+db_subnet_group_name = "bravodev"
+allocated_storage    = "10"
+engine               = "mysql"
+engine_version       = "8.0.35"
+identifier           = "bravordsdev1"
+instance_class       = "db.t3.medium"
+db_name              = "devopsb49devinst"
+username             = "adminsree"
+bucket_name          = "bravob49devbucket001"
+assume_rolename      = "arn:aws:iam::721834156908:role/devsecopsb49tfrole"
+create_efs           = false
+create_rds           = false
+efs_name             = "bravo-dev-efs"
+#To use multiple workspaces parallelly, you can assign environment variables to the workspace name and run terraform commands.

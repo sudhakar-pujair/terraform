@@ -1,0 +1,12 @@
+{
+    "Version": "2012-10-17",
+    "Statement": {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": [
+        "arn:aws:iam::721834156908:role/devsecopsb49tfrole",
+        "arn:aws:iam::009412611595:role/devsecopsb49tfrole",
+        "arn:aws:iam::*:role/devsecopsb49tfrole"
+      ]
+    }
+}
