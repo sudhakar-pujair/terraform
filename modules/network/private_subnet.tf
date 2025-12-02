@@ -1,4 +1,4 @@
-resource "aws_subnet" "private_sub" {
+resource "aws_subnet" "private_subnets" {
   count = length(local.private_cidr)
   vpc_id     = aws_vpc.dev_vpc.id
   cidr_block = element(local.private_cidr, count.index)
