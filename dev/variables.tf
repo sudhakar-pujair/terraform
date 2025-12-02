@@ -51,5 +51,5 @@ variable "sg_id" {
 }
 
 variable "service_ports" {
-  type = string
+  type = list(number)
 }
