@@ -1,6 +1,6 @@
 resource "aws_security_group" "allow_all" {
   name        = "${var.vpc_name}-allow-all"
-  description = "Allow all inbound traffic"
+  description = "Allow inbound ports only"
   vpc_id      = var.vpc_id
 
   dynamic "ingress" {
@@ -13,29 +13,17 @@ resource "aws_security_group" "allow_all" {
     }
   }
 
-  dynamic "egress" {
-    for_each = toset(local.ports_out)
-    # Pass a list value to toset to convert it to a set, 
-    # which will remove any duplicate elements and discard the ordering of the elements.
-    #Good for for_each as its dont use index values. Not good for element function.
-    content {
-      from_port   = egress.value
-      to_port     = egress.value
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  }
-
+  # Allow ALL outbound
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
-    }  
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   tags = {
     Name        = "${var.vpc_name}-allow-all-sg"
-    environment = "${var.environment}"
+    environment = var.environment
   }
 
   lifecycle {
