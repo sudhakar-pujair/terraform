@@ -11,11 +11,11 @@ output "environment" {
 }
 
 output "public_subnets" {
-  value = aws_subnet.public[*].id
+  value = aws_subnet.public_subnets[*].id
 }
 
 output "private_subnets" {
-  value = aws_subnet.private[*].id
+  value = aws_subnet.private_subnets[*].id
 }
 
 output "public_rt_route_table_id" {
