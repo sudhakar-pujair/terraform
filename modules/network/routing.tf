@@ -1,4 +1,4 @@
-resource "aws_route_table" "public-rt" {
+resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.dev_vpc.id
 
   route {
@@ -14,7 +14,7 @@ resource "aws_route_table" "public-rt" {
   }
 }
 
-resource "aws_route_table" "private-rt" {
+resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.dev_vpc.id
 
   tags = {
@@ -28,11 +28,11 @@ resource "aws_route_table" "private-rt" {
 resource "aws_route_table_association" "public-sub-associate" {
   count = length(local.public_cidr)
   subnet_id      = element(aws_subnet.public_sub.*.id, count.index)
-  route_table_id = aws_route_table.public-rt.id
+  route_table_id = aws_route_table.public_rt.id
 }
 
 resource "aws_route_table_association" "private-sub-associate" {
   count = length(local.private_cidr)
   subnet_id      = element(aws_subnet.private_sub.*.id, count.index)
-  route_table_id = aws_route_table.private-rt.id
+  route_table_id = aws_route_table.private_rt.id
 }
