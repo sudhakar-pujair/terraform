@@ -1,5 +1,5 @@
 resource "aws_instance" "public-server" {
-  count                       = var.environment == "Devlopment" || var.environment == "dev" ? 1 : 1
+  count = var.environment == "Devlopment" || var.environment == "dev" ? 1 : 1
   ami = lookup(var.amis, var.aws_region)
   instance_type = var.instance_type
   key_name = var.key_name
