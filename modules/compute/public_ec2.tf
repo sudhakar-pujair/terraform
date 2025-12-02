@@ -2,7 +2,7 @@ resource "aws_instance" "public-server" {
   ami = lookup(var.amis, var.aws_region)
   instance_type = var.instance_type
   key_name = var.key_name
-  subnet_id = element(var.public_subnets, count.index)
+  subnet_id = element(var.public_subnets)
   vpc_security_group_ids = [var.sg_id]
   associate_public_ip_address = true
 
