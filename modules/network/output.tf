@@ -10,18 +10,18 @@ output "environment" {
   value = var.environment
 }
 
-output "public_sub_id" {
-  value = "${aws_subnet.public_sub.*.id}"
+output "public_subnets" {
+  value = aws_subnet.public[*].id
 }
 
-output "private_sub_id" {
-  value = "${aws_subnet.private_sub.*.id}"
+output "private_subnets" {
+  value = aws_subnet.private[*].id
 }
 
-output "public-rt-route-table-id" {
-  value = "${aws_route_table.public-rt.id}"
+output "public_rt_route_table_id" {
+  value = aws_route_table.public_rt.id
 }
 
-output "private-rt-route-table-id" {
-  value = "${aws_route_table.private-rt.id}"
+output "private_rt_route_table_id" {
+  value = aws_route_table.private_rt.id
 }

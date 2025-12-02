@@ -4,3 +4,4 @@ variable "public_cidr" {type = list(string)}
 variable "private_cidr" {type = list(string)}
 variable "azs" {type = list(string)}
 variable "environment" {}
+variable "owner" {}
