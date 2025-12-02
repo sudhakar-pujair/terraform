@@ -16,7 +16,7 @@ terraform {
   backend "s3" {
     bucket       = "terraformbkp0212"
     key          = "customer_workspace.tfstate"
-    region       = var.aws_region
+    region       = "us-east-1"
     use_lockfile = true
   }
 }
