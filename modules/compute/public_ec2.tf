@@ -7,7 +7,7 @@ resource "aws_instance" "public-server" {
   associate_public_ip_address = true
 
   tags = {
-    Name        = lower("${var.vpc_name}-Public-Server-${count.index + 1}")
+    Name        = lower("${var.vpc_name}-Public-Server")
     environment = lower("${var.environment}")
     Project = "${local.pname}"
   }
@@ -22,7 +22,7 @@ resource "aws_instance" "public-server" {
     sudo cp webhooktesting/index.html /var/www/html/index.nginx-debian.html
     sudo cp webhooktesting/style.css /var/www/html/style.css
     sudo cp webhooktesting/scorekeeper.js /var/www/html/scorekeeper.js
-  	#echo "<div><h1>${var.vpc_name}-Public-Server-${count.index + 1}</h1></div>" >> /var/www/html/index.nginx-debian.html
-    sed -i '29i <center><div id="container"><h1>${var.vpc_name}-Public-Server-${count.index + 1}</h1></div></center>' /var/www/html/index.nginx-debian.html
+  	#echo "<div><h1>${var.vpc_name}-Public-Server</h1></div>" >> /var/www/html/index.nginx-debian.html
+    sed -i '29i <center><div id="container"><h1>${var.vpc_name}-Public-Server</h1></div></center>' /var/www/html/index.nginx-debian.html
   EOF
 }
