@@ -1,0 +1,28 @@
+name: AWS Terraform Workflow For Batch DevSecOps B49
+on:
+  pull_request:
+    types:
+    - closed
+    branches:
+      - development
+      - production
+    paths-ignore:
+      - 'Manual.yml'
+      - 'ReadMe.md'
+  push:
+    branches:
+      - development
+      - production
+    paths-ignore:
+      - 'Manual.yml'
+      - 'ReadMe.md'
+
+#Use PR rather than push as most of the clients using PR for merging branches.
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: "us-east-1"
+  ENV_DESTROY: "NO"
+  TERRAFORM_DESTROY: ${{ vars.TERRAFORM_DESTROY}}
+  TERRAFORM_VERSION: "1.14.0"
