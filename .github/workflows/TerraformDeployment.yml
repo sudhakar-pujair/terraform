@@ -114,8 +114,8 @@ jobs:
       - name: Terraform Plan
         if: env.ENV_DESTROY == 'NO'
         run: |
-          if [ ${GITHUB_REF} == 'refs/heads/dev_env' ]; then
-            echo "Running Terraform Plan For dev_env Environment"
+          if [ ${GITHUB_REF} == 'refs/heads/development' ]; then
+            echo "Running Terraform Plan For development Environment"
             terraform workspace select dev
             terraform plan --var-file=Alpha.tfvars
           elif [ ${GITHUB_REF} == 'refs/heads/production' ]; then
