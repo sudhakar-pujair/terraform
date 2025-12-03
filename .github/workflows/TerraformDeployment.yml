@@ -4,14 +4,14 @@ on:
     types:
     - closed
     branches:
-      - development
+      - dev_env
       - production
     paths-ignore:
       - 'Manual.yml'
       - 'ReadMe.md'
   push:
     branches:
-      - development
+      - dev_env
       - production
     paths-ignore:
       - 'Manual.yml'
@@ -26,3 +26,102 @@ env:
   ENV_DESTROY: "NO"
   TERRAFORM_DESTROY: ${{ vars.TERRAFORM_DESTROY}}
   TERRAFORM_VERSION: "1.14.0"
+
+jobs:
+  # terraform-checkov:
+  #   if: ${{ vars.TERRAFORM_DESTROY == 'NO' }}
+  #   name: 'Stage_1 - Checkov Security Scan For Terraform Code'
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./dev_env
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Print Runner Hostname
+  #       run: echo $HOSTNAME
+  #     - name: Setup Checkov
+  #       uses: bridgecrewio/checkov-action@v12
+  #       with:
+  #         directory: ./dev_env
+  #         quiet: true
+  #         soft_fail: true # If Given False, Action Fails when Checkov finds issues. 
+  #         output_format: cli,json
+  #         output_file_path: console,./dev_env/results.json
+  #     - name: Upload file to bucket
+  #       uses: koraykoska/s3-upload-github-action@master
+  #       env:
+  #         FILE: ./dev_env/results.json
+  #         S3_ENDPOINT: 's3.us-east-1.amazonaws.com'
+  #         S3_BUCKET: "terraformbkp0212"
+  #         S3_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         S3_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  terraform-initiate:
+    if: ${{ vars.TERRAFORM_DESTROY == 'NO' }}
+    name: 'Stage_1 - Terraform Initialization'
+    runs-on: ubuntu-latest
+    # needs: terraform-checkov
+    defaults:
+      run:
+        working-directory: ./dev_env
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: env.TERRAFORM_VERSION
+      - name: Print Runner Hostname
+        run: echo $HOSTNAME
+      - name: Print Branch Name
+        run: echo ${GITHUB_REF}
+      - name: Terraform Version
+        run: terraform version
+      - name: Terraform Init, Format, Validate
+        run: terraform init && terraform fmt && terraform get && terraform validate
+      - name: Creating Terraform Workspaces
+        run: |
+          terraform workspace select dev || terraform workspace new dev
+          terraform workspace select prod || terraform workspace new prod
+          terraform workspace list
+
+  terraform-plan:
+    if: ${{ vars.TERRAFORM_DESTROY == 'NO' }}
+    name: 'Stage_2 - Terraform Plan'
+    runs-on: ubuntu-latest
+    needs: terraform-initiate
+    defaults:
+      run:
+        working-directory: ./dev_env
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: env.TERRAFORM_VERSION
+      - name: Print Runner Hostname
+        run: echo $HOSTNAME
+      - name: Print Branch Name
+        run: echo ${GITHUB_REF}
+      - name: Terraform Version
+        run: terraform version
+      - name: Terraform Init, Format, Validate
+        run: terraform init && terraform fmt && terraform get && terraform validate
+      - name: Print Branch Reference
+        run: echo The Current Branch Is $GITHUB_REF
+      - name: Terraform Plan
+        if: env.ENV_DESTROY == 'NO'
+        run: |
+          if [ ${GITHUB_REF} == 'refs/heads/development' ]; then
+            echo "Running Terraform Plan For development Environment"
+            terraform workspace select dev
+            terraform plan --var-file=Alpha.tfvars
+          elif [ ${GITHUB_REF} == 'refs/heads/production' ]; then
+            echo "Running Terraform Plan For Production Environment"
+            terraform workspace select prod
+            terraform plan --var-file=Bravo.tfvars
+          else
+            echo "Nothing Is Deployed As The Branch Is Not Dev OR Prod."
+          fi
