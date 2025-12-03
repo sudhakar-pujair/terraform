@@ -4,14 +4,14 @@ on:
     types:
     - closed
     branches:
-      - development
+      - dev_env
       - production
     paths-ignore:
       - 'Manual.yml'
       - 'ReadMe.md'
   push:
     branches:
-      - development
+      - dev_env
       - production
     paths-ignore:
       - 'Manual.yml'
@@ -34,7 +34,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   defaults:
   #     run:
-  #       working-directory: ./development
+  #       working-directory: ./dev_env
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v4
@@ -43,15 +43,15 @@ jobs:
   #     - name: Setup Checkov
   #       uses: bridgecrewio/checkov-action@v12
   #       with:
-  #         directory: ./development
+  #         directory: ./dev_env
   #         quiet: true
   #         soft_fail: true # If Given False, Action Fails when Checkov finds issues. 
   #         output_format: cli,json
-  #         output_file_path: console,./development/results.json
+  #         output_file_path: console,./dev_env/results.json
   #     - name: Upload file to bucket
   #       uses: koraykoska/s3-upload-github-action@master
   #       env:
-  #         FILE: ./development/results.json
+  #         FILE: ./dev_env/results.json
   #         S3_ENDPOINT: 's3.us-east-1.amazonaws.com'
   #         S3_BUCKET: "terraformbkp0212"
   #         S3_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -59,12 +59,12 @@ jobs:
 
   terraform-initiate:
     if: ${{ vars.TERRAFORM_DESTROY == 'NO' }}
-    name: 'Stage_2 - Terraform Initialization'
+    name: 'Stage_1 - Terraform Initialization'
     runs-on: ubuntu-latest
     # needs: terraform-checkov
     defaults:
       run:
-        working-directory: ./development
+        working-directory: ./dev_env
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -88,12 +88,12 @@ jobs:
 
   terraform-plan:
     if: ${{ vars.TERRAFORM_DESTROY == 'NO' }}
-    name: 'Stage_3 - Terraform Plan'
+    name: 'Stage_2 - Terraform Plan'
     runs-on: ubuntu-latest
     needs: terraform-initiate
     defaults:
       run:
-        working-directory: ./development
+        working-directory: ./dev_env
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -114,8 +114,8 @@ jobs:
       - name: Terraform Plan
         if: env.ENV_DESTROY == 'NO'
         run: |
-          if [ ${GITHUB_REF} == 'refs/heads/development' ]; then
-            echo "Running Terraform Plan For Development Environment"
+          if [ ${GITHUB_REF} == 'refs/heads/dev_env' ]; then
+            echo "Running Terraform Plan For dev_env Environment"
             terraform workspace select dev
             terraform plan --var-file=Alpha.tfvars
           elif [ ${GITHUB_REF} == 'refs/heads/production' ]; then
